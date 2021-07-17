@@ -12,4 +12,4 @@ Server = https://heera-os.github.io/archrepo/$arch/
 
 ## List of packages
 
-- [x86_64](https://github.com/adig-pkgs/cutefish-pkgs/tree/gh-pages/x86_64)
+- [x86_64](https://github.com/heera-os/archrepo/tree/gh-pages/x86_64)
