@@ -1,6 +1,6 @@
 # Maintainer: rajan pandey <pandey11rajan@gmail.com>
 pkgname=heera-launcher
-pkgver=0,01alfa
+pkgver=r3.48ede16
 pkgrel=1
 pkgdesc="Heera Launcher"
 arch=('x86_64')
@@ -11,10 +11,8 @@ depends=('qt5-declarative' 'qt5-quickcontrols2' 'kwindowsystem')
 makedepends=('git' 'cmake' 'extra-cmake-modules' 'gcc' 'ninja')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
-source=("${pkgname}::git+${url}"
-	
-md5sums=('SKIP'
-	)
+source=("${pkgname}::git+${url}")
+md5sums=('SKIP')
 
 prepare() {
         cd "$srcdir/${pkgname}"
