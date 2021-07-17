@@ -1,6 +1,6 @@
 # Maintainer: rajan pandey <pandey11rajan@gmail.com>
 pkgname=heera-dock
-pkgver=0.01alfa
+pkgver=r3.1e352ac
 pkgrel=1
 pkgdesc="Heera Dock"
 arch=('x86_64')
@@ -11,10 +11,8 @@ depends=('heera-user-interface' 'heera-system-library' 'qt5-declarative' 'kwindo
 makedepends=('git' 'cmake' 'gcc' 'ninja')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
-source=("${pkgname}::git+${url}"
-prepare() {
-	cd "$srcdir/${pkgname}"
-
+source=("${pkgname}::git+${url}")
+md5sums=('SKIP')
 
 pkgver() {
         cd "$srcdir/${pkgname}"

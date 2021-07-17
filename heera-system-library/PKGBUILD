@@ -1,6 +1,6 @@
 # Maintainer: rajan pandey <pandey11rajan@gmail.com>
 pkgname=heera-system-library
-pkgver=0.01alfa
+pkgver=r3.0980308
 pkgrel=1
 pkgdesc="Heera System Library"
 arch=('x86_64')

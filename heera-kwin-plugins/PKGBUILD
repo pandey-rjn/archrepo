@@ -1,6 +1,6 @@
 # Maintainer: rajan pandey <pandey11rajan@gmail.com>
 pkgname=heera-kwin-plugins
-pkgver=0.01alfa
+pkgver=r3.2b56e8b
 pkgrel=1
 pkgdesc="Heera Kwin Plugins"
 arch=('x86_64')

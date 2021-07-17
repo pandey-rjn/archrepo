@@ -1,6 +1,6 @@
 # Maintainer: rajan pandey <pandey11rajan@gmail.com>
 pkgname=heera-user-interface
-pkgver=0.01alfa
+pkgver=r3.7b0acdf
 pkgrel=1
 pkgdesc="Heera User Interface"
 arch=('x86_64')
