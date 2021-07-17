@@ -1,4 +1,5 @@
 ## archlinux repository for heera os
+##(not working yet)
 
 ### Usage
 
