@@ -12,10 +12,6 @@ makedepends=('git' 'cmake' 'gcc' 'ninja')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
 source=("${pkgname}::git+${url}"
-	
-md5sums=('SKIP'
-	)
-
 prepare() {
 	cd "$srcdir/${pkgname}"
 
