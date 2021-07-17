@@ -1,5 +1,9 @@
 ## archlinux repository for heera os
+<<<<<<< HEAD
 ##   fixme>>>(not working auto build with github actions right now)
+=======
+##(not working yet)
+>>>>>>> main
 
 ### Usage
 
