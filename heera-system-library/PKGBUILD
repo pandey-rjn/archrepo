@@ -1,0 +1,39 @@
+# Maintainer: rajan pandey <pandey11rajan@gmail.com>
+pkgname=heera-system-library
+pkgver=0.01alfa
+pkgrel=1
+pkgdesc="Heera System Library"
+arch=('x86_64')
+url="https://github.com/heera-os/heera-system-library.git"
+license=('GPL3')
+groups=('heeraDE')
+depends=('libkscreen' 'qt5-quickcontrols2' 'kio' 'networkmanager-qt' 'qt5-sensors' 'kcoreaddons' 'modemmanager-qt')
+makedepends=('git' 'cmake' 'extra-cmake-modules' 'gcc' 'ninja')
+provides=("${pkgname}")
+conflicts=("${pkgname}")
+source=("${pkgname}::git+${url}")
+md5sums=('SKIP')
+
+pkgver() {
+        cd "$srcdir/${pkgname}"
+
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "$srcdir/${pkgname%-git}"
+        mkdir -p build && cd build
+        rm -f CMakeCache.txt
+	cmake \
+		-G Ninja \
+		-DCMAKE_BUILD_TYPE=Release \
+		..
+	cmake --build .
+}
+
+package() {
+	cd "$srcdir/${pkgname}"
+        cd build
+	DESTDIR="$pkgdir/" cmake --install .
+}
+

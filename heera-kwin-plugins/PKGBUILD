@@ -1,0 +1,44 @@
+# Maintainer: rajan pandey <pandey11rajan@gmail.com>
+pkgname=heera-kwin-plugins
+pkgver=0.01alfa
+pkgrel=1
+pkgdesc="Heera Kwin Plugins"
+arch=('x86_64')
+url="https://github.com/heera-os/heera-kwin-plugins.git"
+license=('GPL3')
+groups=('heeraDE')
+depends=('kwin')
+makedepends=('git' 'cmake' 'extra-cmake-modules' 'gcc' 'ninja')
+provides=("${pkgname}")
+conflicts=("${pkgname}")
+source=("${pkgname}::git+${url}")
+md5sums=('SKIP')
+
+prepare() {
+        cd "$srcdir/${pkgname}"
+
+}
+
+pkgver() {
+        cd "$srcdir/${pkgname}"
+
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "$srcdir/${pkgname}"
+        mkdir -p build && cd build
+        rm -f CMakeCache.txt
+	cmake \
+		-G Ninja \
+		-DCMAKE_BUILD_TYPE=Release \
+		..
+	cmake --build .
+}
+
+package() {
+	cd "$srcdir/${pkgname}"
+        cd build
+	DESTDIR="$pkgdir/" cmake --install .
+}
+

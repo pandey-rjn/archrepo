@@ -1,0 +1,40 @@
+# Maintainer: rajan pandey <pandey11rajan@gmail.com>
+pkgname=heera-wallpapers
+pkgver=0.01
+pkgrel=1
+pkgdesc="heera Wallpapers"
+arch=('any')
+url="https://github.com/heera-os/heera-wallpapers.git"
+license=('GPL3')
+groups=('cutefish-git')
+depends=()
+makedepends=('git' 'cmake' 'extra-cmake-modules' 'gcc' 'ninja')
+provides=("${pkgname}")
+conflicts=("${pkgname}")
+options=('!strip')
+source=("${pkgname}::git+${url}")
+md5sums=('SKIP')
+
+pkgver() {
+        cd "$srcdir/${pkgname}"
+
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "$srcdir/${pkgname}"
+        mkdir -p build && cd build
+        rm -f CMakeCache.txt
+	cmake \
+		-G Ninja \
+		-DCMAKE_BUILD_TYPE=Release \
+		..
+	cmake --build .
+}
+
+package() {
+	cd "$srcdir/${pkgname}"
+        cd build
+	DESTDIR="$pkgdir/" cmake --install .
+}
+
