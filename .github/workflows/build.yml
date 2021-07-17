@@ -24,12 +24,15 @@ jobs:
           key: cache-heera
           path: ${{ env.CCACHE_DIR }}
       - run: pacman -Syu --noconfirm
-      - run: ./action.sh initialize 
+      - name: Add custom repository
+        run: printf "[heera]\nSigLevel = Optional\nServer = https://heera-os.github.io/archrepo/\$arch\n" >> /etc/pacman.conf
+      - run: ./action.sh initialize
       - run: ./action.sh build
+        continue-on-error: true
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.GIT_BRANCH }}
           path: ${{ env.GIT_BRANCH }}
           fetch-depth: 0
       - run: ./action.sh publish
-        if: always()
+

@@ -18,7 +18,7 @@ GITHUB_REPO_OWNER=${GITHUB_REPOSITORY%/*}
 ARCH_REPO_NAME=heera
 
 initialize() {
-	pacman -Syu --noconfirm --needed git ccache ninja
+	pacman -Syu --noconfirm --needed git wget ccache ninja
 
 	echo "${BUILD_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${BUILD_USER}
 	echo "cache_dir = ${CCACHE_DIR}" > /etc/ccache.conf
@@ -35,7 +35,7 @@ build() {
 	for PKGBUILD_PATH in $(find . -name "PKGBUILD"); do
 		pkgbuild_dir=${PKGBUILD_PATH%PKGBUILD}
 		pushd "$pkgbuild_dir"
-			sudo -u "${BUILD_USER}" makepkg -sr --noconfirm --needed
+			sudo -u "${BUILD_USER}" makepkg -sr --noconfirm --needed || true		# Keep building next packages
 			cp -v *.pkg.tar.zst "${PKGS_DIR}/"
 		popd
 	done
@@ -44,8 +44,8 @@ build() {
 publish() {
 	# Expecting the branch is cloned at "${GITHUB_BRANCH}"
 	cd "${GIT_BRANCH}"
- 	# git checkout "${GIT_BRANCH}"
-	rm -rfv "${ARCH}"
+
+	rm -rfv "${ARCH}"	# To remove older packages
 	mkdir "${ARCH}"
 
 	# Remove older commit
@@ -53,6 +53,11 @@ publish() {
 
 	# Add the packages
 	cd "${ARCH}"
+
+	# Download QHotKey
+	wget "https://cyber.123780.xyz/cyber/os/x86_64/qhotkey-r111.eb7ddab-1-x86_64.pkg.tar.zst"
+	wget "https://cyber.123780.xyz/cyber/os/x86_64/qhotkey-r111.eb7ddab-1-x86_64.pkg.tar.zst.sig"
+
 	find "${PKGS_DIR}" -name "*.pkg.tar.zst" -exec cp -v "{}" . \;
 
 	repo-add $ARCH_REPO_NAME.db.tar.gz *.pkg.tar.zst
