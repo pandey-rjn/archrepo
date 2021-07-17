@@ -43,7 +43,7 @@ build() {
 
 publish() {
 	# Expecting the branch is cloned at "${GITHUB_BRANCH}"
-	cd "$GIT_BRANCH"
+	cd "${GIT_BRANCH}"
  	# git checkout "${GIT_BRANCH}"
 	rm -rfv "${ARCH}"
 	mkdir "${ARCH}"
