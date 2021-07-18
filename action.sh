@@ -29,6 +29,15 @@ update_local_repo() {
 	pacman -Sy
 }
 
+verify_packages() {
+	cd "$PKGS_DIR/x86_64"
+	pacman -Sy namcap --noconfirm
+	for PACKAGE in $(find . -name "*.pkg.tar.zst"); do
+		echo "For "$PACKAGE" :"
+		namcap $PACKAGE || { echo "ERROR IN $PACKAGE"; true; }
+	done
+}
+
 initialize() {
 	pacman -Syu --noconfirm --needed git wget ccache ninja
 
