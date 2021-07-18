@@ -1,0 +1,31 @@
+# Maintainer: Rajan Pandey <>
+
+pkgname=qhotkey
+pkgver=r1001.bb66yu
+pkgrel=1
+pkgdesc=""
+arch=('x86_64')
+url=""
+license=('GPL-3.0-or-later')
+source=("$pkgname-src::git+https://github.com/Skycoder42/QHotkey.git")
+md5sums=('SKIP')
+makedepends=('git')
+depends=('qt5-base')
+
+pkgver() {
+    cd "$pkgname-src"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+    cd "$pkgname-src"
+    mkdir -p build
+    cd build
+    qmake ..
+    make
+}
+
+package() {
+    cd "$pkgname-src/build"
+    make INSTALL_ROOT="$pkgdir/" install
+}
