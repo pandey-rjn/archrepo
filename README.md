@@ -1,5 +1,4 @@
-## archlinux repository for heera os
-##   fixme>>>(not working auto build with github actions right now)
+# Archlinux Repository for Heera OS
 
 ### Usage
 
@@ -11,12 +10,8 @@ SigLevel = Optional
 Server = https://heera-os.github.io/archrepo/$arch/
 ```
 
-These packages are built by Github Actions, and from the latest -git sources, hence may provide additional features as the cutefish os are updated (The repo was created for this only, as some features were very new in dock).
+These packages are built by Github Actions, and from the latest -git sources, hence may provide additional features as the heera os repositories are updated.
 
-* All of these belong to the `heeraDE` group
-
+* All of these packages belong to the `heeraDE` group
 
 Checkout the Heera OS repositories at https://github.com/heera-os
-
-
-
