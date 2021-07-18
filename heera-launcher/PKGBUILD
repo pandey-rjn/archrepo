@@ -1,14 +1,14 @@
 # Maintainer: rajan pandey <pandey11rajan@gmail.com>
 pkgname=heera-launcher
-pkgver=r3.48ede16
+pkgver=r4.c29c6db
 pkgrel=1
 pkgdesc="Heera Launcher"
 arch=('x86_64')
 url="https://github.com/heera-os/heera-launcher.git"
 license=('GPL3')
 groups=('heeraDE')
-depends=('qt5-declarative' 'qt5-quickcontrols2' 'kwindowsystem')
-makedepends=('git' 'cmake' 'extra-cmake-modules' 'gcc' 'ninja')
+depends=('qt5-declarative' 'kwindowsystem')
+makedepends=('git' 'cmake' 'qt5-tools' 'qt5-quickcontrols2' 'extra-cmake-modules' 'gcc' 'ninja')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
 source=("${pkgname}::git+${url}")
