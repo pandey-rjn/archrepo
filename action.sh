@@ -17,6 +17,18 @@ MAKEFLAGS="-j$(nproc)"
 GITHUB_REPO_OWNER=${GITHUB_REPOSITORY%/*}
 ARCH_REPO_NAME=heera
 
+create_local() {
+	mkdir -pv $PKGS_DIR/x86_64
+
+	# Create the package database (Ignore warnings)
+	repo-add $PKGS_DIR/x86_64/pkgs.db.tar.gz
+}
+
+update_local_repo() {
+	repo-add "$PKGS_DIR"/pkgs.db.tar.gz "$PKGS_DIR/x86_64/"*.tar.gz
+	pacman -Sy
+}
+
 initialize() {
 	pacman -Syu --noconfirm --needed git wget ccache ninja
 
@@ -36,7 +48,8 @@ build() {
 		pkgbuild_dir=${PKGBUILD_PATH%PKGBUILD}
 		pushd "$pkgbuild_dir"
 			sudo -u "${BUILD_USER}" makepkg -sr --noconfirm --needed || true		# Keep building next packages
-			cp -v *.pkg.tar.zst "${PKGS_DIR}/"
+			cp -v *.pkg.tar.zst "${PKGS_DIR}/x86-64/" || true
+			update_local_repo
 		popd
 	done
 }

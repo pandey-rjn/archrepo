@@ -24,7 +24,11 @@ jobs:
           key: cache-heera
           path: ${{ env.CCACHE_DIR }}
       - run: pacman -Syu --noconfirm
-      - name: Add custom repository
+      - name: Initial Custom local repository
+        run: ./action.sh create_local
+      - name: Add local repository  # this contains the latest built packages
+        run: printf "[pkgs]\nSigLevel = Optional\nServer = file://"${{ env.PKGS_DIR }}"/\$arch\n" >> /etc/pacman.conf
+      - name: Add heera github repository # this contains the previous built packages, helps pacman find missing deps
         run: printf "[heera]\nSigLevel = Optional\nServer = https://heera-os.github.io/archrepo/\$arch\n" >> /etc/pacman.conf
       - run: ./action.sh initialize
       - run: ./action.sh build
