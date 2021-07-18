@@ -1,14 +1,14 @@
 # Maintainer: rajan pandey <pandey11rajan@gmail.com>
 pkgname=heera-core
-pkgver=r5.3e4370f
+pkgver=r6.bd698c1
 pkgrel=1
 pkgdesc="Heera Core"
 arch=('x86_64')
 url="https://github.com/heera-os/heera-core.git"
 license=('GPL3')
 groups=('heeraDE')
-depends=('qt5-declarative' 'polkit-qt5' 'kwindowsystem' 'libpulse' 'libxtst')
-makedepends=('git' 'qt5-quickcontrols2' 'cmake' 'extra-cmake-modules' 'heera-user-interface' 'ninja')
+depends=('qt5-declarative' 'qhotkey' 'polkit-qt5' 'kwindowsystem' 'libpulse' 'libxtst')
+makedepends=('git' 'qt5-quickcontrols2' 'qt5-tools' 'cmake' 'extra-cmake-modules' 'heera-user-interface' 'ninja')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
 source=("${pkgname}::git+${url}")

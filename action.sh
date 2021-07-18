@@ -46,9 +46,23 @@ build() {
 
 	for PKGBUILD_PATH in $(find . -name "PKGBUILD"); do
 		pkgbuild_dir=${PKGBUILD_PATH%PKGBUILD}
+		cd "$pkgbuild_dir"
+			sudo -u "${BUILD_USER}" makepkg -s --noconfirm --needed || true
+		cd ..
+	done
+
+}
+
+ci_build() {
+	export MAKEFLAGS="-j$(nproc)"
+
+	mkdir -pv "${PKGS_DIR}"
+
+	for PKGBUILD_PATH in $(find . -name "PKGBUILD"); do
+		pkgbuild_dir=${PKGBUILD_PATH%PKGBUILD}
 		pushd "$pkgbuild_dir"
-			sudo -u "${BUILD_USER}" makepkg -sr --noconfirm --needed || true		# Keep building next packages
-			cp -v *.pkg.tar.zst "${PKGS_DIR}/x86-64/" || true
+			sudo -u "${BUILD_USER}" makepkg -sfr --noconfirm --needed
+			cp -v *.pkg.tar.zst "${PKGS_DIR}/x86_64/"
 			update_local_repo
 		popd
 	done
@@ -67,10 +81,6 @@ publish() {
 	# Add the packages
 	cd "${ARCH}"
 
-	# Download QHotKey
-	wget "https://cyber.123780.xyz/cyber/os/x86_64/qhotkey-r111.eb7ddab-1-x86_64.pkg.tar.zst"
-	wget "https://cyber.123780.xyz/cyber/os/x86_64/qhotkey-r111.eb7ddab-1-x86_64.pkg.tar.zst.sig"
-
 	find "${PKGS_DIR}" -name "*.pkg.tar.zst" -exec cp -v "{}" . \;
 
 	repo-add $ARCH_REPO_NAME.db.tar.gz *.pkg.tar.zst
@@ -81,7 +91,7 @@ publish() {
 	git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 	git config user.name "${GITHUB_ACTOR}"
 
-	git commit -m "updated at $(date +'%d/%m/%Y %H:%M:%S')"
+	git commit -m "Updated at $(date +'%d/%m/%Y %H:%M:%S')"
 
 	# Push
 	git push -fu origin "${GIT_BRANCH}"
