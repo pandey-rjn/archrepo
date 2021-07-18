@@ -32,7 +32,6 @@ jobs:
         run: printf "[heera]\nSigLevel = Optional\nServer = https://heera-os.github.io/archrepo/\$arch\n" >> /etc/pacman.conf
       - run: ./action.sh initialize
       - run: ./action.sh ci_build
-        continue-on-error: true
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.GIT_BRANCH }}

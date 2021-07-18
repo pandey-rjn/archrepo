@@ -25,7 +25,7 @@ create_local() {
 }
 
 update_local_repo() {
-	repo-add "$PKGS_DIR"/pkgs.db.tar.gz "$PKGS_DIR/x86_64/"*.tar.gz
+	repo-add "$PKGS_DIR"/pkgs.db.tar.gz "$PKGS_DIR/x86_64/"*.pkg.tar.zst
 	pacman -Sy
 }
 
