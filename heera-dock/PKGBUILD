@@ -1,6 +1,6 @@
 # Maintainer: rajan pandey <pandey11rajan@gmail.com>
 pkgname=heera-dock
-pkgver=r4.41ba087
+pkgver=r5.41ba087
 pkgrel=1
 pkgdesc="Heera Dock"
 arch=('x86_64')
